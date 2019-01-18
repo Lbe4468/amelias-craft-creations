@@ -1,17 +1,9 @@
-/*!
- * Gallery v1.0.2
- * Materialize theme
- * http://materializecss.com/themes.html
- * Personal Use License
- * by Alan Chang
- */
-
 (function ($) {
 
 
   var methods = {
 
-    init : function(options) {
+    init: function (options) {
       var defaults = {
         inDuration: 300, // ms
         outDuration: 200, // ms
@@ -28,7 +20,7 @@
 
       var urlObjectId = window.location.hash.substring(1);
 
-      return this.each(function(i) {
+      return this.each(function (i) {
         var originClickable = true;
         var returnClickable = false;
         var overlayActive = false;
@@ -99,7 +91,7 @@
           origin.attr('data-fillscreen', true);
         }
 
-        var resetSelectors = function() {
+        var resetSelectors = function () {
           $object = origin.find('.gallery-cover');
           $header = origin.find('.gallery-header');
           $curveWrapper = origin.find('.gallery-curve-wrapper');
@@ -108,7 +100,7 @@
           placeholder = origin.find('.placeholder');
         };
 
-        var setOrigDimensions = function() {
+        var setOrigDimensions = function () {
           origContainerRect = origin[0].getBoundingClientRect();
           origContainerWidth = origContainerRect.width;
           origContainerHeight = origin.height();
@@ -117,11 +109,14 @@
           origHeaderHeight = origHeaderRect.height || 1;
           origObjectWidth = $object.width();
           origObjectHeight = $object.height();
-          origObjectRect = $object.length ? $object[0].getBoundingClientRect() : {top: origHeaderRect.top, left: 0};
+          origObjectRect = $object.length ? $object[0].getBoundingClientRect() : {
+            top: origHeaderRect.top,
+            left: 0
+          };
           origScrollTop = $(window).scrollTop();
         };
 
-        origin.off('click.galleryExpand').on('click.galleryExpand', function(e) {
+        origin.off('click.galleryExpand').on('click.galleryExpand', function (e) {
           // If already modal, do nothing
           if (!originClickable) {
             return;
@@ -130,7 +125,7 @@
           // If is child of ancestor that has attr data-stop-propagation, do nothing
           var target = $(e.target);
           if (target.attr('data-stop-propagation') ||
-              target.closest('[data-stop-propagation="true"]').length) {
+            target.closest('[data-stop-propagation="true"]').length) {
             return;
           }
 
@@ -149,8 +144,8 @@
 
           // Card vars
           var headerOffsetTop, newCardWidth, newCardHeight,
-              cardWidthRatio, cardHeightRatio;
-          var recalculateVars = function() {
+            cardWidthRatio, cardHeightRatio;
+          var recalculateVars = function () {
             windowWidth = $(document).width();
             windowHeight = window.innerHeight;
 
@@ -158,14 +153,14 @@
             fullWidth = windowWidth <= responsiveThreshold;
             objectSizeAdjusted = origObjectWidth > windowWidth / 2 || fillScreen;
             bodyScrolls = document.body.scrollHeight > document.body.clientHeight;
-              // Get the computed style of the body element
-              var bodyStyle = document.body.currentStyle||window.getComputedStyle(document.body, "");
-              // Check the overflow and overflowY properties for "auto" and "visible" values
-              bodyScrolls = bodyScrolls &&
-                            (bodyStyle.overflow == "visible" ||
-                             bodyStyle.overflowY == "visible" ||
-                             bodyStyle.overflow == "auto" ||
-                             bodyStyle.overflowY == "auto");
+            // Get the computed style of the body element
+            var bodyStyle = document.body.currentStyle || window.getComputedStyle(document.body, "");
+            // Check the overflow and overflowY properties for "auto" and "visible" values
+            bodyScrolls = bodyScrolls &&
+              (bodyStyle.overflow == "visible" ||
+                bodyStyle.overflowY == "visible" ||
+                bodyStyle.overflow == "auto" ||
+                bodyStyle.overflowY == "auto");
 
             // Dimensions
             navOffset = fullWidth ? 56 : 64;
@@ -229,7 +224,7 @@
 
           // Disable scrolling.
           $('body').css('overflowX', 'hidden');
-          $('body').on('scroll.disable-scroll mousewheel.disable-scroll touchmove.disable-scroll', function(e) {
+          $('body').on('scroll.disable-scroll mousewheel.disable-scroll touchmove.disable-scroll', function (e) {
             e.preventDefault();
             e.stopPropagation();
             return false;
@@ -307,21 +302,21 @@
           }
           overlay
             .off('click.galleryExpand')
-            .on('click.galleryExpand', function() {
+            .on('click.galleryExpand', function () {
               returnToOriginal();
             })
           if (fillScreen) {
             overlay
               .off('mouseenter.galleryExpand')
               .off('mouseleave.galleryExpand')
-              .on('mouseenter.galleryExpand', function() {
+              .on('mouseenter.galleryExpand', function () {
                 $object.addClass('hover');
               })
-              .on('mouseleave.galleryExpand', function() {
+              .on('mouseleave.galleryExpand', function () {
                 $object.removeClass('hover');
               });
           }
-          setTimeout(function() {
+          setTimeout(function () {
             overlay.addClass('visible');
           }, 0);
 
@@ -335,12 +330,14 @@
             originalNavColor = $('nav').css('background-color');
             $('nav').addClass('fadeOut');
           }
-          navbar.css({'background-color': originalNavColor});
+          navbar.css({
+            'background-color': originalNavColor
+          });
           container.append(backBtn);
           navWrapper.append(container);
           navbar.append(navWrapper);
           placeholder.prepend(navbar);
-          backBtn.click(function() {
+          backBtn.click(function () {
             returnToOriginal();
           });
 
@@ -356,14 +353,14 @@
 
             try {
               sampledColorPalette = colorThief.getPalette(origin.find('img')[0], 2);
-              primaryColor = primaryColor || 'rgb(' + sampledColorPalette[0][0] + ',' +  sampledColorPalette[0][1] + ',' + sampledColorPalette[0][2] + ')';
-              secondaryColor = secondaryColor || 'rgb(' + sampledColorPalette[1][0] + ',' +  sampledColorPalette[1][1] + ',' + sampledColorPalette[1][2] + ')';
+              primaryColor = primaryColor || 'rgb(' + sampledColorPalette[0][0] + ',' + sampledColorPalette[0][1] + ',' + sampledColorPalette[0][2] + ')';
+              secondaryColor = secondaryColor || 'rgb(' + sampledColorPalette[1][0] + ',' + sampledColorPalette[1][1] + ',' + sampledColorPalette[1][2] + ')';
 
               // Make navbar secondaryColor background
               navbar.css({
                 backgroundColor: secondaryColor
               });
-            } catch(e) {
+            } catch (e) {
               console.log("Cross Origin error. Falling back to defaultColor. Try using a locally hosted image", e);
 
               // Clean up canvas
@@ -377,7 +374,7 @@
                   imgHeight = Math.round(imgRect.height);
                 }
                 if (tempCanvas[0].getContext('2d').canvas.width === imgWidth &&
-                    tempCanvas[0].getContext('2d').canvas.height === imgHeight) {
+                  tempCanvas[0].getContext('2d').canvas.height === imgHeight) {
                   tempCanvas.remove();
                 }
               }
@@ -436,7 +433,7 @@
 
           // Animate header into card
           $header.children().css('opacity', 0);
-          var transformHeader = function() {
+          var transformHeader = function () {
             var offsetLeft = cardPadding / cardWidthRatio;
             var offsetTop = -headerOffsetTop / cardHeightRatio;
 
@@ -447,7 +444,7 @@
             $header.css({
               transition: 'transform ' + (inDuration / 1000) + 's ' + bezierCurve,
               '-webkit-transition': '-webkit-transform ' + (inDuration / 1000) + 's ' + bezierCurve,
-              transform: 'scale(' + cardWidthRatio + ',' + cardHeightRatio + ') translate3d(' + offsetLeft + 'px,' + offsetTop +'px,0)',
+              transform: 'scale(' + cardWidthRatio + ',' + cardHeightRatio + ') translate3d(' + offsetLeft + 'px,' + offsetTop + 'px,0)',
               transformOrigin: '0 0'
             });
           };
@@ -483,7 +480,7 @@
             });
 
             // Color buttons.
-            $action.find(btnSelector).each(function() {
+            $action.find(btnSelector).each(function () {
               $(this).css({
                 backgroundColor: secondaryColor
               });
@@ -491,22 +488,22 @@
           }
 
           // Set throttled window resize calculations.
-          modalResizer = Materialize.throttle(function() {
+          modalResizer = Materialize.throttle(function () {
             recalculateVars();
           }, 150);
 
           $(window).resize(modalResizer);
 
-          animationTimeout = setTimeout(function() {
+          animationTimeout = setTimeout(function () {
 
             // Show floating btns.
             if ($action.length) {
-              $action.find(btnSelector).each(function() {
+              $action.find(btnSelector).each(function () {
                 $(this).addClass('active');
               });
             }
 
-            var setStaticState = function() {
+            var setStaticState = function () {
               // Save animationEndState
               animationEndState = placeholder.clone(true);
 
@@ -556,7 +553,7 @@
             };
 
             if ($body.length) {
-              $body.fadeIn(300, function() {
+              $body.fadeIn(300, function () {
                 setStaticState();
               });
             } else {
@@ -568,7 +565,7 @@
             returnClickable = true;
 
             // Execute callback
-            if (typeof(options.onShow) === "function") {
+            if (typeof (options.onShow) === "function") {
               options.onShow.call(this, origin);
             }
 
@@ -578,8 +575,8 @@
 
 
         // Return on ESC
-        $(document).keyup(function(e) {
-          if (e.keyCode === 27) {   // ESC key
+        $(document).keyup(function (e) {
+          if (e.keyCode === 27) { // ESC key
             if (overlayActive) {
               returnToOriginal();
             }
@@ -637,7 +634,7 @@
           // Show header.
           $header.show();
 
-          setTimeout(function() {
+          setTimeout(function () {
 
             // Off resize event.
             $(window).off('resize', modalResizer);
@@ -650,14 +647,14 @@
 
             // Reset navbar
             $('nav').removeClass('fadeOut');
-            $('#placeholder-navbar').fadeOut(outDuration, 'easeInQuad', function(){
+            $('#placeholder-navbar').fadeOut(outDuration, 'easeInQuad', function () {
               $(this).remove();
             });
 
             // Remove Overlay
             overlayActive = false;
 
-            overlay.fadeOut(outDuration, 'easeInQuad', function() {
+            overlay.fadeOut(outDuration, 'easeInQuad', function () {
               $(this).remove();
             });
 
@@ -689,7 +686,9 @@
                 objectCssObject['-webkit-transition'] = '-webkit-transform ' + (outDuration / 1000) + 's, width ' + (outDuration / 1000) + 's, height ' + (outDuration / 1000) + 's';
 
                 // Reset gradient.
-                gradient.css({ background: '' });
+                gradient.css({
+                  background: ''
+                });
 
               } else {
                 objectCssObject.transform = 'translate3d(' + (origObjectRect.left - cardPadding - contentPadding) + 'px, 0, 0)';
@@ -706,7 +705,7 @@
               });
             }
 
-            animationTimeout = setTimeout(function() {
+            animationTimeout = setTimeout(function () {
               placeholder.removeAttr('style');
               origin.css({
                 width: '',
@@ -748,7 +747,7 @@
 
         // If correct URL param, open corresponding gallery
         if (dynamicRouting &&
-            urlObjectId === objectId) {
+          urlObjectId === objectId) {
           origin.trigger('click.galleryExpand');
         }
       });
@@ -757,10 +756,10 @@
 
     },
     // Custom methods.
-    open : function() {
+    open: function () {
       $(this).trigger('click.galleryExpand');
     },
-    close : function() {
+    close: function () {
       var overlay = $('#placeholder-overlay');
       if (overlay.length) {
         overlay.trigger('click.galleryExpand');
@@ -769,14 +768,14 @@
   };
 
 
-    $.fn.galleryExpand = function(methodOrOptions) {
-      if ( methods[methodOrOptions] ) {
-        return methods[ methodOrOptions ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-      } else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
-        // Default to "init"
-        return methods.init.apply( this, arguments );
-      } else {
-        $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.galleryExpand' );
-      }
-    }; // Plugin end
-}( jQuery ));
+  $.fn.galleryExpand = function (methodOrOptions) {
+    if (methods[methodOrOptions]) {
+      return methods[methodOrOptions].apply(this, Array.prototype.slice.call(arguments, 1));
+    } else if (typeof methodOrOptions === 'object' || !methodOrOptions) {
+      // Default to "init"
+      return methods.init.apply(this, arguments);
+    } else {
+      $.error('Method ' + methodOrOptions + ' does not exist on jQuery.galleryExpand');
+    }
+  }; // Plugin end
+}(jQuery));
